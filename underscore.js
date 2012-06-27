@@ -892,6 +892,16 @@
   _.times = function(n, iterator, context) {
     for (var i = 0; i < n; i++) iterator.call(context, i);
   };
+  
+  // Create an iterator for the given collection
+  _.iterator = function( collection ){
+		var values = _.values( collection ) , keys = _.keys( collection ) , itIdx = -1, iterator = {};
+		iterator.next = function(){
+			itIdx++;
+			return itIdx < _.size( collection ) ? [ keys[itIdx] , values[itIdx] ] : null;
+		};
+		return iterator;
+	};
 
   // List of HTML entities for escaping.
   var htmlEscapes = {
